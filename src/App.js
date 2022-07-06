@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Board from './components/Board';
 import Cell from './components/Cell';
-import { HStack, Flex, IconButton, useColorMode, Button, VStack } from '@chakra-ui/react'
+import { HStack, Flex, IconButton, useColorMode, Button, VStack, Text } from '@chakra-ui/react'
 import { FaSun, FaMoon } from 'react-icons/fa';
 import Winner from './components/Winner';
 import Elmodal from './components/Elmodal';
@@ -11,7 +11,7 @@ const [turn, setTurn] = useState('X');
 const [cells, setCells] = useState(Array(9).fill(''));
 const [winner, setWinner] = useState('');
 const [clicked, setClicked] = useState(true);
-
+const [draw, setDraw] = useState(false)
 const { colorMode, toggleColorMode } = useColorMode();
 
 const checkForWinner = (squares) => {
@@ -34,6 +34,12 @@ const checkForWinner = (squares) => {
   }
 };
 
+const checkForDraw = (squares) => {
+  if(squares.every((cell) => cell !== "")) {
+      setDraw(true)
+  }
+}
+
 const handleClick = (num) => {
   if(winner) {
     setClicked(true)
@@ -43,9 +49,7 @@ const handleClick = (num) => {
     setClicked(true)
     return;
   }
-
   let squares = [...cells];
-
   if (turn === 'X') {
     squares[num] = 'X';
     setTurn('O');
@@ -54,6 +58,7 @@ const handleClick = (num) => {
     setTurn('X');
   }
   checkForWinner(squares);
+  checkForDraw(squares)
   setCells(squares);
 };
 
@@ -61,6 +66,7 @@ const handleRestart = () => {
   setWinner(null);
   setTurn('X');
   setCells(Array(9).fill(''));
+  setDraw(false)
 };
 
 return (
@@ -70,7 +76,8 @@ return (
   align='center'
   w='100%'
   >
-    <Board turn={turn} winner={winner}/>
+    <Board turn={turn} winner={winner} draw={draw}/>
+    {draw && <Text p={2} fontSize={25} color='red' fontWeight='600'>It 's a drawww</Text>}
     {winner && <Winner handleRestart={handleRestart} winner={winner} />}
     {clicked && <Elmodal setClicked={setClicked} winner={winner}/> }
     <HStack>
@@ -94,7 +101,7 @@ return (
     align='center'
     m={2}
     >
-      <Button size='sm' onClick={() => handleRestart()}>{winner? 'Play Again' : 'Reset'}</Button>
+      <Button my={5} size='sm' onClick={() => handleRestart()}>{winner? 'Play Again' : 'Reset'}</Button>
       <IconButton
           icon={colorMode === 'light' ? <FaSun /> : <FaMoon />}
           isRound='true'

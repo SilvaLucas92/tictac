@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { Box, Text } from '@chakra-ui/react'
-const Elmodal = ({setClicked, winner}) => {
+const Elmodal = ({setClicked, winner, draw}) => {
 
         useEffect(() => {
             setTimeout(() => {

@@ -1,12 +1,13 @@
 import React from 'react'
 import {Flex, Heading} from '@chakra-ui/react'
 
-const Board = ({ turn, winner }) => {
+const Board = ({ turn, winner, draw }) => {
   return (
     <Flex
     justify='center'
     align='center'
     direction='column'
+    mt='120px'
     >
       <Heading
        as='h1'
@@ -18,7 +19,7 @@ const Board = ({ turn, winner }) => {
        >
           Tic Tac Toe
       </Heading>
-      {!winner && (
+      {!winner && !draw && (
         <Heading
        as='h3'
        size='3x1'
