@@ -1,14 +1,13 @@
 import React from 'react'
-import { HStack, Button, Text } from '@chakra-ui/react'
+import { HStack, Text } from '@chakra-ui/react'
 
-const Winner = ({winner, handleRestart}) => {
+const Winner = ({winner}) => {
   return (
     <HStack
     m={2}
     >
         <Text p={2}>And the Winner is...  </Text>
-        <Text font fontSize={25} color='red'>¡{winner}!</Text>
-        <Button size='sm' onClick={() => handleRestart()}>Play Again</Button>
+        <Text font fontSize={25} fontBold='500' color='red'>¡{winner}!</Text>
     </HStack>
   )
 }

@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import './App.css';
 import Board from './components/Board';
 import Cell from './components/Cell';
-import { HStack, Flex, IconButton, useColorMode } from '@chakra-ui/react'
+import { HStack, Flex, IconButton, useColorMode, Button, VStack } from '@chakra-ui/react'
 import { FaSun, FaMoon } from 'react-icons/fa';
 import Winner from './components/Winner';
 import Elmodal from './components/Elmodal';
 function App() {
 const [turn, setTurn] = useState('X');
 const [cells, setCells] = useState(Array(9).fill(''));
-const [winner, setWinner] = useState();
-const [clicked, setClicked] = useState(true)
+const [winner, setWinner] = useState('');
+const [clicked, setClicked] = useState(true);
 
 const { colorMode, toggleColorMode } = useColorMode();
 
@@ -26,7 +26,6 @@ const checkForWinner = (squares) => {
       [2, 4, 6],
     
   ];
-
   for ( let i = 0 ; i < combos.length ; i++ ) {
     let [a, b, c] = combos[i];
     if ( squares[a] && squares[a] === squares[b] && squares[a] === squares[c] ) {
@@ -60,9 +59,9 @@ const handleClick = (num) => {
 
 const handleRestart = () => {
   setWinner(null);
+  setTurn('X');
   setCells(Array(9).fill(''));
 };
-
 
 return (
   <Flex
@@ -89,19 +88,22 @@ return (
           <Cell cells={cells} handleClick={handleClick} num={7} />
           <Cell cells={cells} handleClick={handleClick} num={8} />
     </HStack>
-    <Flex
+    <VStack
     w='70%'
     justify='center'
+    align='center'
+    m={2}
     >
+      <Button size='sm' onClick={() => handleRestart()}>{winner? 'Play Again' : 'Reset'}</Button>
       <IconButton
           icon={colorMode === 'light' ? <FaSun /> : <FaMoon />}
           isRound='true'
           size='md'
           alignSelf='center'
           onClick={toggleColorMode}
-          m={5}
+          m={1}
       />
-    </Flex> 
+    </VStack> 
   </Flex>
 );
 }
