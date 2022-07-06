@@ -6,6 +6,7 @@ import { HStack, Flex, IconButton, useColorMode, Button, VStack, Text } from '@c
 import { FaSun, FaMoon } from 'react-icons/fa';
 import Winner from './components/Winner';
 import Elmodal from './components/Elmodal';
+import Footer from './components/Footer';
 function App() {
 const [turn, setTurn] = useState('X');
 const [cells, setCells] = useState(Array(9).fill(''));
@@ -110,7 +111,8 @@ return (
           onClick={toggleColorMode}
           m={1}
       />
-    </VStack> 
+    </VStack>
+    <Footer />
   </Flex>
 );
 }
