@@ -7,7 +7,7 @@ const Board = ({ turn, winner, draw }) => {
     justify='center'
     align='center'
     direction='column'
-    mt='120px'
+    mt='80px'
     >
       <Heading
        as='h1'
