@@ -9,9 +9,6 @@ const Footer = () => {
     alignItems='center'
     w='100%'
     m='5px'
-    bottom='0'
-    position='fixed'
-    zIndex='1'
     >
         <Text
         alignItems='center'
